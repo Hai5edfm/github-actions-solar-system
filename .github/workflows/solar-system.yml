@@ -15,6 +15,8 @@ env:
 jobs:
   unit-testing:
     name: Unit Testing
+    container:
+      image: node:20
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -22,10 +24,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Setup NodeJS Version - ${{ matrix.os }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+      # - name: Setup NodeJS Version - ${{ matrix.os }}
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 20
       - name: Cache NPM dependencies
         uses: actions/cache@v3
         with:
