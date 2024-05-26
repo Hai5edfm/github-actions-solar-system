@@ -77,3 +77,19 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/hai5edfm/solar-system:${{ github.sha }}
+  dev-deploy:
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install kubectl CLI
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.26.0'
+      - name: Set Kube config
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+      - name: Verify kubectl
+        run: kubectl version --short -o yaml
