@@ -92,7 +92,8 @@ jobs:
           method: kubeconfig
           kubeconfig: '${{ secrets.KUBECONFIG }}'
       - run: kubectl version --short -o yaml
-  integration-testing:
+  # dev-deploy job
+  integration-test:
     needs: dev-deploy
     uses: ./.github/workflows/reusable-workflow.yml
     with:
